@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Affidavit Validation</title>
+    <style>
+        body {
+            background-color: #d1d5db; /* Light grey/blue background */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .card {
+            background: white;
+            padding: 40px 30px;
+            border-radius: 8px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+        }
+
+        .photo-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        .passport-circle {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 1px solid #ddd;
+        }
+
+        .passport-circle img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .signature-box {
+            width: 100px;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .signature-box img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+
+        .info-text {
+            color: #333;
+            font-size: 16px;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+
+        .highlight-green {
+            color: #27ae60;
+            font-weight: bold;
+        }
+
+        .login-link {
+            display: block;
+            text-align: right;
+            color: #333;
+            text-decoration: underline;
+            font-size: 14px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <div class="photo-container">
+            <div class="passport-circle">
+                <img id="display-passport" src="aff.jpg" alt="Passport">
+            </div>
+            <div class="signature-box">
+                <img id="display-sign" src="https://via.placeholder.com/100" alt="Signature">
+            </div>
+        </div>
+
+        <div class="info-text">
+            This is a <span class="highlight-green">GENERAL FORM OF AFFIDAVIT</span> 
+            deposed by <span class="highlight-green" id="display-name">Umar Abdullahi Salisu</span> 
+            associated with code <span class="highlight-green" id="display-code">########</span>. 
+            it has been found in our database and confirmed as <span class="highlight-green">VALID</span>
+        </div>
+
+        <a href="https://varms.fcthighcourt.gov.ng" class="login-link">Go to Login</a>
+    </div>
+
+    <script>
+        // FUNCTION TO READ URL DATA
+        window.onload = function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const id = urlParams.get('id');
+
+            if (id) {
+                document.getElementById('display-code').innerText = id;
+                
+                /* IN A REAL SYSTEM:
+                   You would fetch the data from a database here.
+                   Example: 
+                   db.collection("affidavits").doc(id).get().then(doc => {
+                       document.getElementById('display-name').innerText = doc.data().name;
+                       document.getElementById('display-passport').src = doc.data().passportUrl;
+                   });
+                */
+
+                // SIMULATING DATA LOAD
+                document.getElementById('display-name').innerText = "Aliyu Ibrahim";
+            }
+        };
+    </script>
+</body>
+</html>
