@@ -6,7 +6,7 @@
     <title>Affidavit Validation</title>
     <style>
         body {
-            background-color: #d1d5db; /* Light grey/blue background */
+            background-color: #d1d5db; 
             display: flex;
             justify-content: center;
             align-items: center;
@@ -15,6 +15,45 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
+        /* Loading Screen Styles */
+        #loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #d1d5db; /* Matches the body background */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+
+        .loader-card {
+            background: white;
+            padding: 60px;
+            border-radius: 8px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #333;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Main Card Styles */
         .card {
             background: white;
             padding: 40px 30px;
@@ -23,7 +62,7 @@
             max-width: 400px;
             width: 77%;
             text-align: center;
-            position:fixed;
+            display: none; /* Hidden initially */
         }
 
         .photo-container {
@@ -69,7 +108,7 @@
 
         .highlight-green {
             color: #27ae60;
-            font-weight:2px bold;
+            font-weight: bold;
         }
 
         .login-link {
@@ -84,7 +123,15 @@
 </head>
 <body>
 
-    <div class="card">
+    <!-- The Loading Screen -->
+    <div id="loader">
+        <div class="loader-card">
+            <div class="spinner"></div>
+        </div>
+    </div>
+
+    <!-- The Actual Content -->
+    <div class="card" id="main-content">
         <div class="photo-container">
             <div class="passport-circle">
                 <img id="display-passport" src="aff.jpg" alt="Passport">
@@ -98,33 +145,28 @@
             This is a <span class="highlight-green">GENERAL FORM OF AFFIDAVIT</span> 
             deposed by <span class="highlight-green" id="display-name">MARYAM MOHAMMED</span> 
             associated with code <span class="highlight-green" id="display-code">9WY989S83MAMO</span>. 
-            it has been</br>found in our database and confirmed as </br><span class="highlight-green">VALID</span>
+            it has been<br>found in our database and confirmed as <br><span class="highlight-green">VALID</span>
         </div>
 
         <a href="https://varms.fcthighcourt.gov.ng" class="login-link">Go to Login</a>
     </div>
 
     <script>
-        // FUNCTION TO READ URL DATA
         window.onload = function() {
             const urlParams = new URLSearchParams(window.location.search);
             const id = urlParams.get('id');
 
+            // Set data immediately
             if (id) {
                 document.getElementById('display-code').innerText = id;
-                
-                /* IN A REAL SYSTEM:
-                   You would fetch the data from a database here.
-                   Example: 
-                   db.collection("affidavits").doc(id).get().then(doc => {
-                       document.getElementById('display-name').innerText = doc.data().name;
-                       document.getElementById('display-passport').src = doc.data().passportUrl;
-                   });
-                */
-
-                // SIMULATING DATA LOAD
                 document.getElementById('display-name').innerText = "Aliyu Ibrahim";
             }
+
+            // After 3 seconds, hide loader and show content
+            setTimeout(function() {
+                document.getElementById('loader').style.display = 'none';
+                document.getElementById('main-content').style.display = 'block';
+            }, 3000); 
         };
     </script>
 </body>
