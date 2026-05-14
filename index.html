@@ -15,54 +15,58 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
-        /* Loading Screen Styles */
-        #loader {
+        /* FULL SCREEN OVERLAY */
+        #loader-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: #d1d5db; /* Matches the body background */
+            background-color: #d1d5db; /* Matches background in screenshot */
             display: flex;
             justify-content: center;
             align-items: center;
-            z-index: 9999;
+            z-index: 1000;
         }
 
+        /* WHITE CARD FOR LOADER */
         .loader-card {
             background: white;
-            padding: 60px;
+            width: 80%;
+            max-width: 350px;
+            height: 250px;
             border-radius: 8px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
             display: flex;
-            flex-direction: column;
+            justify-content: center;
             align-items: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
 
+        /* SVG SPINNER STYLING */
         .spinner {
-            border: 4px solid #f3f3f3;
-            border-top: 4px solid #333;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            animation: spin 1s linear infinite;
+            width: 50px;
+            height: 50px;
+            animation: rotate 1s linear infinite;
         }
 
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
         }
 
-        /* Main Card Styles */
+        /* MAIN CONTENT (HIDDEN BY DEFAULT) */
+        #main-content {
+            display: none;
+        }
+
         .card {
             background: white;
             padding: 40px 30px;
             border-radius: 8px;
             box-shadow: 0 10px 25px rgba(0,0,0,0.1);
             max-width: 400px;
-            width: 77%;
+            width: 90%;
             text-align: center;
-            display: none; /* Hidden initially */
         }
 
         .photo-container {
@@ -103,7 +107,6 @@
             color: #333;
             font-size: 15px;
             line-height: 1.5;
-            margin-bottom: 20px;
         }
 
         .highlight-green {
@@ -123,32 +126,50 @@
 </head>
 <body>
 
-    <!-- The Loading Screen -->
-    <div id="loader">
+    <!-- THE EXACT LOADER FROM SCREENSHOT -->
+    <div id="loader-overlay">
         <div class="loader-card">
-            <div class="spinner"></div>
+            <!-- 12-Bar iOS Style Spinner -->
+            <svg class="spinner" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <g fill="#333">
+                    <rect x="47" y="10" width="6" height="20" rx="3" opacity="1"/>
+                    <rect x="47" y="10" width="6" height="20" rx="3" transform="rotate(30 50 50)" opacity="0.91"/>
+                    <rect x="47" y="10" width="6" height="20" rx="3" transform="rotate(60 50 50)" opacity="0.83"/>
+                    <rect x="47" y="10" width="6" height="20" rx="3" transform="rotate(90 50 50)" opacity="0.75"/>
+                    <rect x="47" y="10" width="6" height="20" rx="3" transform="rotate(120 50 50)" opacity="0.66"/>
+                    <rect x="47" y="10" width="6" height="20" rx="3" transform="rotate(150 50 50)" opacity="0.58"/>
+                    <rect x="47" y="10" width="6" height="20" rx="3" transform="rotate(180 50 50)" opacity="0.5"/>
+                    <rect x="47" y="10" width="6" height="20" rx="3" transform="rotate(210 50 50)" opacity="0.41"/>
+                    <rect x="47" y="10" width="6" height="20" rx="3" transform="rotate(240 50 50)" opacity="0.33"/>
+                    <rect x="47" y="10" width="6" height="20" rx="3" transform="rotate(270 50 50)" opacity="0.25"/>
+                    <rect x="47" y="10" width="6" height="20" rx="3" transform="rotate(300 50 50)" opacity="0.16"/>
+                    <rect x="47" y="10" width="6" height="20" rx="3" transform="rotate(330 50 50)" opacity="0.08"/>
+                </g>
+            </svg>
         </div>
     </div>
 
-    <!-- The Actual Content -->
-    <div class="card" id="main-content">
-        <div class="photo-container">
-            <div class="passport-circle">
-                <img id="display-passport" src="aff.jpg" alt="Passport">
+    <!-- DATA CONTENT -->
+    <div id="main-content">
+        <div class="card">
+            <div class="photo-container">
+                <div class="passport-circle">
+                    <img id="display-passport" src="aff.jpg" alt="Passport">
+                </div>
+                <div class="signature-box">
+                    <img id="display-sign" src="sign.jpg" alt="Signature">
+                </div>
             </div>
-            <div class="signature-box">
-                <img id="display-sign" src="sign.jpg" alt="Signature">
+
+            <div class="info-text">
+                This is a <span class="highlight-green">GENERAL FORM OF AFFIDAVIT</span> 
+                deposed by <span class="highlight-green" id="display-name">MARYAM MOHAMMED</span> 
+                associated with code <span class="highlight-green" id="display-code">9WY989S83MAMO</span>. 
+                it has been<br>found in our database and confirmed as <br><span class="highlight-green">VALID</span>
             </div>
-        </div>
 
-        <div class="info-text">
-            This is a <span class="highlight-green">GENERAL FORM OF AFFIDAVIT</span> 
-            deposed by <span class="highlight-green" id="display-name">MARYAM MOHAMMED</span> 
-            associated with code <span class="highlight-green" id="display-code">9WY989S83MAMO</span>. 
-            it has been<br>found in our database and confirmed as <br><span class="highlight-green">VALID</span>
+            <a href="https://varms.fcthighcourt.gov.ng" class="login-link">Go to Login</a>
         </div>
-
-        <a href="https://varms.fcthighcourt.gov.ng" class="login-link">Go to Login</a>
     </div>
 
     <script>
@@ -156,18 +177,19 @@
             const urlParams = new URLSearchParams(window.location.search);
             const id = urlParams.get('id');
 
-            // Set data immediately
+            // Handle ID logic
             if (id) {
                 document.getElementById('display-code').innerText = id;
                 document.getElementById('display-name').innerText = "Aliyu Ibrahim";
             }
 
-            // After 3 seconds, hide loader and show content
+            // WAIT 3 SECONDS THEN SWAP
             setTimeout(function() {
-                document.getElementById('loader').style.display = 'none';
+                document.getElementById('loader-overlay').style.display = 'none';
                 document.getElementById('main-content').style.display = 'block';
-            }, 3000); 
+            }, 3000);
         };
     </script>
 </body>
-</html>
+    </html>
+    
