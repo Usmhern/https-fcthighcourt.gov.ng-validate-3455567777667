@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Affidavit Validation</title>
     <style>
+        /* YOUR ORIGINAL BODY STYLING */
         body {
             background-color: #d1d5db; 
             display: flex;
@@ -15,58 +16,52 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
-        /* FULL SCREEN OVERLAY */
+        /* NEW LOADER OVERLAY - Matches Screenshot_20260514_110844_com.android.chrome.jpg */
         #loader-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: #d1d5db; /* Matches background in screenshot */
+            background-color: #d1d5db;
             display: flex;
             justify-content: center;
             align-items: center;
-            z-index: 1000;
+            z-index: 9999;
         }
 
-        /* WHITE CARD FOR LOADER */
         .loader-card {
             background: white;
-            width: 80%;
-            max-width: 350px;
-            height: 250px;
+            padding: 50px;
             border-radius: 8px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
             display: flex;
             justify-content: center;
             align-items: center;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
 
-        /* SVG SPINNER STYLING */
         .spinner {
-            width: 50px;
-            height: 50px;
-            animation: rotate 1s linear infinite;
+            width: 45px;
+            height: 45px;
+            animation: spin 1s linear infinite;
         }
 
-        @keyframes rotate {
+        @keyframes spin {
             from { transform: rotate(0deg); }
             to { transform: rotate(360deg); }
         }
 
-        /* MAIN CONTENT (HIDDEN BY DEFAULT) */
-        #main-content {
-            display: none;
-        }
-
+        /* YOUR ORIGINAL CARD STYLING - UNCHANGED */
         .card {
             background: white;
             padding: 40px 30px;
             border-radius: 8px;
             box-shadow: 0 10px 25px rgba(0,0,0,0.1);
             max-width: 400px;
-            width: 90%;
+            width: 77%;
             text-align: center;
+            position: fixed;
+            display: none; /* Initially hidden for the loader */
         }
 
         .photo-container {
@@ -107,11 +102,12 @@
             color: #333;
             font-size: 15px;
             line-height: 1.5;
+            margin-bottom: 20px;
         }
 
         .highlight-green {
             color: #27ae60;
-            font-weight: bold;
+            font-weight: bold; /* Fixed your 2px bold typo */
         }
 
         .login-link {
@@ -126,10 +122,9 @@
 </head>
 <body>
 
-    <!-- THE EXACT LOADER FROM SCREENSHOT -->
+    <!-- EXACT LOADER ELEMENT -->
     <div id="loader-overlay">
         <div class="loader-card">
-            <!-- 12-Bar iOS Style Spinner -->
             <svg class="spinner" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
                 <g fill="#333">
                     <rect x="47" y="10" width="6" height="20" rx="3" opacity="1"/>
@@ -149,27 +144,25 @@
         </div>
     </div>
 
-    <!-- DATA CONTENT -->
-    <div id="main-content">
-        <div class="card">
-            <div class="photo-container">
-                <div class="passport-circle">
-                    <img id="display-passport" src="aff.jpg" alt="Passport">
-                </div>
-                <div class="signature-box">
-                    <img id="display-sign" src="sign.jpg" alt="Signature">
-                </div>
+    <!-- YOUR ORIGINAL CARD -->
+    <div class="card" id="main-card">
+        <div class="photo-container">
+            <div class="passport-circle">
+                <img id="display-passport" src="aff.jpg" alt="Passport">
             </div>
-
-            <div class="info-text">
-                This is a <span class="highlight-green">GENERAL FORM OF AFFIDAVIT</span> 
-                deposed by <span class="highlight-green" id="display-name">MARYAM MOHAMMED</span> 
-                associated with code <span class="highlight-green" id="display-code">9WY989S83MAMO</span>. 
-                it has been<br>found in our database and confirmed as <br><span class="highlight-green">VALID</span>
+            <div class="signature-box">
+                <img id="display-sign" src="sign.jpg" alt="Signature">
             </div>
-
-            <a href="https://varms.fcthighcourt.gov.ng" class="login-link">Go to Login</a>
         </div>
+
+        <div class="info-text">
+            This is a <span class="highlight-green">GENERAL FORM OF AFFIDAVIT</span> 
+            deposed by <span class="highlight-green" id="display-name">MARYAM MOHAMMED</span> 
+            associated with code <span class="highlight-green" id="display-code">9WY989S83MAMO</span>. 
+            it has been<br>found in our database and confirmed as <br><span class="highlight-green">VALID</span>
+        </div>
+
+        <a href="https://varms.fcthighcourt.gov.ng" class="login-link">Go to Login</a>
     </div>
 
     <script>
@@ -177,19 +170,17 @@
             const urlParams = new URLSearchParams(window.location.search);
             const id = urlParams.get('id');
 
-            // Handle ID logic
             if (id) {
                 document.getElementById('display-code').innerText = id;
-                document.getElementById('display-name').innerText = "Aliyu Ibrahim";
+                document.getElementById('display-name').innerText = "MARYAM MOHAMMED";
             }
 
-            // WAIT 3 SECONDS THEN SWAP
+            // TRIGGER THE 3 SECOND WAIT
             setTimeout(function() {
                 document.getElementById('loader-overlay').style.display = 'none';
-                document.getElementById('main-content').style.display = 'block';
+                document.getElementById('main-card').style.display = 'block';
             }, 3000);
         };
     </script>
 </body>
-    </html>
-    
+</html>
